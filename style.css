@@ -1,9 +1,9 @@
 /*
-  Project: Notes App
-  Author: Yabsira Dejene
-  GitHub: https://github.com/YabsiraDejene
-  LinkedIn: https://linkedin.com/in/yabsiradejene
-  © 2025 Yabsira Dejene. All rights reserved.
+     Project: Notes App
+     Author: Yabsira Dejene
+     GitHub: https://github.com/ELFAZ19
+     LinkedIn: https://linkedin.com/in/yabsiradejene
+     © 2025 Yabsira Dejene. All rights reserved.
 */
 
 
@@ -26,6 +26,12 @@
     padding: 0;
     transition: background 0.3s ease, color 0.3s ease;
   }
+
+  html.preload-dark body {
+    background-color: #1e1e2f;
+    color: #f1f1f1;
+  }
+  
   
   body.dark {
     --bg-color: #1e1e2f;

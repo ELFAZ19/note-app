@@ -1,12 +1,10 @@
 /*
   Project: Notes App
   Author: Yabsira Dejene
-  GitHub: https://github.com/YabsiraDejene
+  GitHub: https://github.com/ELFAZ19
   LinkedIn: https://linkedin.com/in/yabsiradejene
   © 2025 Yabsira Dejene. All rights reserved.
 */
-
-
 
 const noteContainer = document.querySelector(".note-container");
 const createBtn = document.querySelector(".create");
@@ -145,9 +143,28 @@ clearBtn.addEventListener("click", () => {
   }
 });
 
+// Apply saved theme on load
+if (localStorage.getItem("theme") === "dark") {
+  document.body.classList.add("dark");
+}
+
+function updateToggleButton() {
+  modeToggle.textContent = document.body.classList.contains("dark")
+    ? "☀️ Light Mode"
+    : "🌙 Dark Mode";
+}
+
+// Toggle dark mode
 modeToggle.addEventListener("click", () => {
   document.body.classList.toggle("dark");
+  localStorage.setItem(
+    "theme",
+    document.body.classList.contains("dark") ? "dark" : "light"
+  );
+  updateToggleButton();
 });
+
+updateToggleButton(); // Run on load
 
 importBtn.addEventListener("click", () => {
   const input = document.createElement("input");
