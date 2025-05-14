@@ -8,11 +8,15 @@ const exportBtn = document.querySelector(".export");
 
 function showNotes() {
   const savedNotes = JSON.parse(localStorage.getItem("notes")) || [];
+
+  const pinned = savedNotes.filter((n) => n.pin);
+  const others = savedNotes.filter((n) => !n.pin);
+  const allNotes = [...pinned, ...others];
+
   noteContainer.innerHTML = "";
-  savedNotes.forEach((data) => {
+  allNotes.forEach((data) => {
     const note = createNote(data);
-    if (data.pin) noteContainer.prepend(note);
-    else noteContainer.appendChild(note);
+    noteContainer.appendChild(note);
   });
 }
 
@@ -23,10 +27,8 @@ function updateStorage() {
       timestamp: note.querySelector(".timestamp").innerText,
       pin: note.querySelector(".pin").classList.contains("active"),
       lock: note.querySelector(".lock").classList.contains("active"),
-      tag: note.querySelector(".tag")
-        ? note.querySelector(".tag").innerText
-        : "",
-      color: note.style.backgroundColor,
+      tag: note.querySelector(".tag")?.innerText || "",
+      color: note.style.backgroundColor || "",
     })
   );
   localStorage.setItem("notes", JSON.stringify(notes));
@@ -46,9 +48,8 @@ function createNote({
 
   const editable = document.createElement("div");
   editable.className = "editable";
-  editable.contentEditable = true;
+  editable.contentEditable = !lock;
   editable.innerText = text;
-  editable.placeholder = "Write your note here...";
 
   const charCount = document.createElement("div");
   charCount.className = "char-count";
@@ -76,7 +77,6 @@ function createNote({
   tagBtn.classList.add("tag");
   tagBtn.innerText = tag || "Tag";
 
-  // Append children
   inputBox.append(
     editable,
     charCount,
@@ -87,36 +87,32 @@ function createNote({
     tagBtn
   );
 
-  // Keyup
   editable.addEventListener("keyup", () => {
     charCount.innerText = `Characters: ${editable.innerText.length}/200`;
     timeTag.innerText = new Date().toLocaleString();
     updateStorage();
   });
 
-  // Pin Note
   pinBtn.addEventListener("click", () => {
     pinBtn.classList.toggle("active");
-    showNotes(); // refresh order
     updateStorage();
+    showNotes();
   });
 
-  // Lock Note
   lockBtn.addEventListener("click", () => {
     lockBtn.classList.toggle("active");
+    editable.contentEditable = !editable.isContentEditable;
     updateStorage();
   });
 
-  // Tag Note
   tagBtn.addEventListener("click", () => {
-    const newTag = prompt("Enter a tag for this note:");
+    const newTag = prompt("Enter tag:");
     if (newTag) {
       tagBtn.innerText = newTag;
       updateStorage();
     }
   });
 
-  // Delete Note
   delBtn.addEventListener("click", () => {
     inputBox.remove();
     updateStorage();
@@ -125,7 +121,6 @@ function createNote({
   return inputBox;
 }
 
-// Create new note
 createBtn.addEventListener("click", () => {
   const newNote = createNote({});
   noteContainer.prepend(newNote);
@@ -133,41 +128,34 @@ createBtn.addEventListener("click", () => {
   updateStorage();
 });
 
-// Clear all notes
 clearBtn.addEventListener("click", () => {
-  if (confirm("Are you sure you want to delete all notes?")) {
+  if (confirm("Delete all notes?")) {
     localStorage.removeItem("notes");
     noteContainer.innerHTML = "";
   }
 });
 
-// Toggle dark mode
 modeToggle.addEventListener("click", () => {
   document.body.classList.toggle("dark");
 });
 
-// Import Notes (from JSON file)
 importBtn.addEventListener("click", () => {
-  const fileInput = document.createElement("input");
-  fileInput.type = "file";
-  fileInput.accept = ".json";
-  fileInput.click();
-
-  fileInput.addEventListener("change", () => {
-    const file = fileInput.files[0];
+  const input = document.createElement("input");
+  input.type = "file";
+  input.accept = ".json";
+  input.click();
+  input.addEventListener("change", () => {
+    const file = input.files[0];
     const reader = new FileReader();
-
     reader.onload = (e) => {
-      const importedNotes = JSON.parse(e.target.result);
-      localStorage.setItem("notes", JSON.stringify(importedNotes));
+      const data = JSON.parse(e.target.result);
+      localStorage.setItem("notes", JSON.stringify(data));
       showNotes();
     };
-
     reader.readAsText(file);
   });
 });
 
-// Export Notes (to JSON file)
 exportBtn.addEventListener("click", () => {
   const notes = JSON.parse(localStorage.getItem("notes")) || [];
   const blob = new Blob([JSON.stringify(notes)], { type: "application/json" });
@@ -177,11 +165,9 @@ exportBtn.addEventListener("click", () => {
   link.click();
 });
 
-// Search Notes
 searchInput.addEventListener("input", () => {
   const query = searchInput.value.toLowerCase();
   const notes = document.querySelectorAll(".input-box");
-
   notes.forEach((note) => {
     const content = note.querySelector(".editable").innerText.toLowerCase();
     note.style.display = content.includes(query) ? "block" : "none";
