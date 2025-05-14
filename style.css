@@ -52,6 +52,15 @@
     transform: scale(1.05);
   }
   
+  .search-box {
+    width: 100%;
+    padding: 10px;
+    margin-top: 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+  }
+  
   .input-box {
     background: var(--note-bg);
     color: var(--text-color);
@@ -94,6 +103,31 @@
   }
   .input-box img.pin.active {
     opacity: 1;
+  }
+  
+  .input-box img.lock {
+    width: 20px;
+    position: absolute;
+    top: 15px;
+    right: 75px;
+    cursor: pointer;
+    opacity: 0.6;
+  }
+  
+  .input-box img.lock.active {
+    opacity: 1;
+  }
+  
+  .input-box .tag {
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+    padding: 3px 8px;
+    background-color: #ff9f00;
+    color: #fff;
+    border-radius: 5px;
+    font-size: 12px;
+    cursor: pointer;
   }
   
   @keyframes fadeIn {
