@@ -14,3 +14,9 @@ createbtn.addEventListener('click', () => {
     noteContainer.appendChild(inputBox).appendChild(img);
      
 })
+
+noteContainer.addEventListener('click', function(e) {
+    if (e.target.tagName === 'IMG') {
+        e.target.parentElement.remove();
+    } 
+}  );
