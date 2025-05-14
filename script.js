@@ -1,3 +1,13 @@
+/*
+  Project: Notes App
+  Author: Yabsira Dejene
+  GitHub: https://github.com/YabsiraDejene
+  LinkedIn: https://linkedin.com/in/yabsiradejene
+  © 2025 Yabsira Dejene. All rights reserved.
+*/
+
+
+
 const noteContainer = document.querySelector(".note-container");
 const createBtn = document.querySelector(".create");
 const clearBtn = document.querySelector(".clear");
