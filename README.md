@@ -20,7 +20,7 @@ or by using this link [preview](https://elfaz19.github.io/note-app/)
 - HTML
 - CSS
 - JavaScript
---
+
 ## How it Works
 
 1. **Initial Load:** On page load, the script checks if there’s a saved theme in `localStorage`. If "dark" is saved, the dark theme is applied automatically.
