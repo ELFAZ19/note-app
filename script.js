@@ -1,9 +1,9 @@
 const noteContainer = document.querySelector('.note-container');
-const createbtn = document.querySelector(".btn");
+const createBtn = document.querySelector(".btn");
 let notes = document.querySelectorAll('.input-box');
 
 function showNotes() {
-    notesContainer.innerHTML = localStorage.getItem('notes');
+    noteContainer.innerHTML = localStorage.getItem('notes');
 
 }
 showNotes();
@@ -12,7 +12,7 @@ function updatestorage(){
     localStorage.setItem('notes',noteContainer.innerHTML);
 }
 
-createbtn.addEventListener('click', () => {
+createBtn.addEventListener('click', () => {
     let inputBox = document.createElement('p');
     let img = document.createElement('img');
 
@@ -30,8 +30,8 @@ noteContainer.addEventListener('click', function(e) {
         e.target.parentElement.remove();
         updatestorage();
     } 
-    else if (e.target.Name == "p"){
-        notes.document.querySelectorAll(".input-box");
+    else if (e.target.tagName === "P"){
+        notes = document.querySelectorAll(".input-box");
         notes.forEach(nt => {
             nt.onkeyup = function() {
                 updatestorage();
