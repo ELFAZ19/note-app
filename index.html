@@ -1,21 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Note App</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Note App</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet" />
 </head>
 <body>
-    <div class="container">
-        <h1>Notes<img src="images/notes.png"> </h1>
-        <button class="btn"><img src="images/edit.png">Create Note</button>
-        <div class="note-container">
-            <!-- <p contenteditable="true" class="input-box">
-                <img src="images/delete.png">
-            </p> -->
-        </div>
+  <div class="container">
+    <h1>Notes <img src="images/notes.png" /></h1>
+    <div class="button-group">
+      <button class="btn create"><img src="images/edit.png" />Create Note</button>
+      <button class="btn clear"><img src="images/delete.png" />Clear All</button>
+      <button class="btn mode-toggle">🌙 Toggle Mode</button>
     </div>
-    <script src="script.js"></script>
+    <div class="note-container"></div>
+  </div>
+  <script src="script.js"></script>
 </body>
 </html>
